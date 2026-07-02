@@ -6,12 +6,12 @@
 
 Check RAG index refresh plans for stale documents and missing rebuild triggers. It solves review drift by turning plain-text plans into deterministic CI-friendly findings.
 
-## Input Contract 40
+## Input Contract
 
 Accepts RAG refresh plan. The reader supports plain text, JSON, JSONL, and CSV so the
 tool can fit into scripts, CI jobs, and review exports.
 
-## CLI Walkthrough 40
+## CLI Walkthrough
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -20,7 +20,7 @@ rag-refresh-check examples/sample.txt --json --fail-on medium
 python -m rag_refresh_check --help
 ```
 
-## Rule Surface 40
+## Rule Surface
 
 | Rule | Severity | Meaning |
 |---|---:|---|
@@ -28,7 +28,7 @@ python -m rag_refresh_check --help
 | `missing-trigger` | medium | rebuild trigger missing |
 | `high-stale-docs` | low | stale docs noted |
 
-## Validation Notes 40
+## Validation Notes
 
 ```bash
 ruff check .
