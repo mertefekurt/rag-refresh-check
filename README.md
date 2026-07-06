@@ -1,33 +1,33 @@
 # RAG Refresh Check
 
-Check RAG index refresh plans for stale documents and missing rebuild triggers. The idea is simple: give RAG Refresh Check the local file or fixture, get a readable result, and decide what needs attention before the next handoff.
+![RAG Refresh Check cover](assets/readme-cover.svg)
 
-## Project card
+Check RAG index refresh plans for stale documents and missing rebuild triggers. The command is intentionally direct so it can sit in a local review, a CI step, or a one-off audit.
 
-<img src="assets/readme-cover.svg" alt="RAG Refresh Check cover" width="100%" />
+## Checks in plain language
 
-| Detail | Value |
-| --- | --- |
-| Area | model quality |
-| Command | `rag-refresh-check` |
-| Example | `examples/sample.txt` |
+| Signal | Level | What it flags | Fix direction |
+| --- | --- | --- | --- |
+| `stale-refresh` | high | index refresh is stale | schedule rebuild |
+| `missing-trigger` | medium | rebuild trigger missing | define rebuild trigger |
+| `high-stale-docs` | low | stale docs noted | measure and reduce stale documents |
 
-## What would make me stop a review
+## Tiny fixture
 
-| Stopper | Level | Why it matters |
-| --- | --- | --- |
-| `stale-refresh` | high | index refresh is stale |
-| `missing-trigger` | medium | rebuild trigger missing |
-| `high-stale-docs` | low | stale docs noted |
+```text
+risky: last_refresh 2024 rebuild_trigger none stale_docs high
+clean: last_refresh 2026 rebuild_trigger docs_changed stale_docs low
+```
 
-## Run from a fresh clone
+## Fresh clone path
 
 ```bash
 git clone https://github.com/mertefekurt/rag-refresh-check.git
 cd rag-refresh-check
-python -m venv .venv
-source .venv/bin/activate
 python -m pip install -e ".[dev]"
 rag-refresh-check examples/sample.txt
-rag-refresh-check examples/sample.txt --json
 ```
+
+## Finding map
+
+![Workflow diagram](assets/readme-diagram.svg)
